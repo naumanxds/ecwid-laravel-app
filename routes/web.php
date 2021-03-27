@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\ShopConfigurationController;
 
 /*
@@ -20,10 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [ShopConfigurationController::class, 'loadDashboard'])->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
 
-Route::view('/load_installation_form', 'installation_form')->middleware(['auth'])->name('load_installation_form');
+    Route::get('/dashboard/{success?}/{message?}', [ShopConfigurationController::class, 'loadDashboard'])->name('dashboard');
+    
+    Route::view('/load_installation_form', 'installation_form')->name('load_installation_form');
+    
+    Route::post('/save_configuration', [ShopConfigurationController::class, 'saveConfiguration'])->name('save_configuration');
+    
+    Route::post('/install_plugin',)->name('install_plugin');
 
-Route::put('/save_configuration', )->middleware(['auth'])->name('save_configuration');
+});
 
 require __DIR__.'/auth.php';

@@ -7,17 +7,6 @@ use Illuminate\Http\Request;
 class ShopConfigurationController extends Controller
 {
     /**
-     * Save Configuration Submitted by the User
-     * 
-     * @param Request $request
-     * @return view
-     */
-    public function saveConfiguration(Request $request)
-    {
-        // TODO
-    }
-
-    /**
      * Install Plugin for new Users
      */
     public function installPlugin()
@@ -40,6 +29,30 @@ class ShopConfigurationController extends Controller
             return redirect('load_installation_form');
         }
 
-        return view('dashboard');
+        return view('dashboard', [
+            'configuration' => $request->user()->shopConfiguration,
+            'success' => $request->success ? $request->success : '',
+            'message' => $request->message ? $request->message : ''
+        ]);
+    }
+
+    /**
+     * Save configuration of the Plugin
+     *
+     * @param Request $request
+     */
+    public function saveConfiguration(Request $request)
+    {
+        $request->validate([
+            'number_field' => 'required|numeric|min:0'
+        ]);
+         
+        $request->user()->shopConfiguration->number_field = $request->number_field;
+        $request->user()->shopConfiguration->save();
+
+        return redirect()->route('dashboard', [
+            'success' => True,
+            'message' => 'Configuration Updated Successfully', 
+        ]);
     }
 }
