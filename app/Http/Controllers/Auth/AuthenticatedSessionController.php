@@ -31,6 +31,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        if (!Auth::user()->shopConfiguration) {
+            return redirect('/load_installation_form');
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

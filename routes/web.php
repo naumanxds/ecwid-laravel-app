@@ -21,4 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::view('/load_installation_form', 'installation_form')->middleware(['auth'])->name('load_installation_form');
+
+Route::put('/save_configuration', )->middleware(['auth'])->name('save_configuration');
+
 require __DIR__.'/auth.php';
