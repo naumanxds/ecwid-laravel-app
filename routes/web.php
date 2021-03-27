@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\ShopConfigurationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [ShopConfigurationController::class, 'loadDashboard'])->middleware(['auth'])->name('dashboard');
 
 Route::view('/load_installation_form', 'installation_form')->middleware(['auth'])->name('load_installation_form');
 

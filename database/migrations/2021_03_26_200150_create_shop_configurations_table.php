@@ -22,9 +22,13 @@ class CreateShopConfigurationsTable extends Migration
             $table->text('public_token')->nullable();
             $table->text('secret_token')->nullable();
             $table->integer('number_field')->nullable();
+            $table->boolean('configuration_success')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id', 'shop_configurations_n_users_fk')->references('id')->on('users');
+            $table->foreign('user_id', 'shop_configurations_n_users_fk')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

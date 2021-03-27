@@ -42,8 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get shop_configuration
+     */
     public function shopConfiguration()
     {
-        return $this->hasOne(ShopConfiguration::class);
+        return $this->hasOne(ShopConfiguration::class, 'user_id');
     }
 }

@@ -24,4 +24,22 @@ class ShopConfigurationController extends Controller
     {
         // TODO
     }
+
+    /**
+     * loads dashboard if valid configuration exists otherwise redirect to installation
+     * 
+     * @param Request $request
+     */
+    public function loadDashboard(Request $request)
+    {
+        // Check if configuration exists and its valid
+        if (
+            is_null($request->user()->shopConfiguration)
+            || !$request->user()->shopConfiguration->configuration_success
+        ) {
+            return redirect('load_installation_form');
+        }
+
+        return view('dashboard');
+    }
 }
