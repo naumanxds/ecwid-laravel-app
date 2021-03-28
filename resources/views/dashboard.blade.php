@@ -20,7 +20,7 @@
                                     > {{ $message }} </p>
                                 </div>
                                 <div class="m-7">
-                                    <form action="{{ route('save_configuration') }}" method="POST" id="save_configuration_form">    
+                                    <form action="{{ route('update_configuration') }}" method="POST" id="save_configuration_form">
                                         @csrf
                                         
                                         <div class="mb-6">

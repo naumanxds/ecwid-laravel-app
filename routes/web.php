@@ -25,9 +25,11 @@ Route::middleware(['auth'])->group(function () {
     
     Route::view('/load_installation_form', 'installation_form')->name('load_installation_form');
     
-    Route::post('/save_configuration', [ShopConfigurationController::class, 'saveConfiguration'])->name('save_configuration');
+    Route::post('/update_configuration', [ShopConfigurationController::class, 'updateConfiguration'])->name('update_configuration');
     
-    Route::post('/install_plugin',)->name('install_plugin');
+    Route::post('/install_plugin', [ShopConfigurationController::class, 'installPlugin'])->name('install_plugin');
+
+    Route::get('/redirect', [ShopConfigurationController::class, 'redirectedUser'])->name('redirect');
 
 });
 
